@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+
+  "name": "fix mc.ru",
+  "version": "0.1.0",
+  "description": "Add more options to service mc.ru",
+
+  "content_scripts": [{
+    "css": ["styles.css"],
+    "js": ["content.js"],
+    "matches": ["https://mc.ru/page.asp/metalloprokat/*"]
+  }]
+
+}

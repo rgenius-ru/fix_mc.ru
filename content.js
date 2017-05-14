@@ -1,4 +1,11 @@
-console.log("Run App Script");
+//global variables
+//**************************
+var iframeChkReadyNum = 60;//counter - number of Check iframe ready
+var iframeChkReadyCount = 0;
+var intervalID;
+var logOn = false;
+//**************************
+console.log("Run Fix_mc Script");
 
 InitScript();
 
@@ -17,8 +24,7 @@ function loadScript(script_filename){
   document.getElementsByTagName('head')[0].appendChild(script);
 }*/
 
-function InitScript(){
-  //initialization
+function InitScript(){//initialization
   addCats();
   
   var basket = document.getElementsByClassName('bask');
@@ -28,7 +34,8 @@ function InitScript(){
 }
 
 function runScript(){
-  setTimeout(main, 5000);  
+  //setTimeout(main, 5000); 
+  intervalID = setInterval(isIframeready, 1000);
 }
 
 function main() {
@@ -38,10 +45,13 @@ function main() {
     
     var content1 = myframe.contentWindow.document.getElementById('background');
     //content1.insertAdjacentHTML('afterend', '<script language="Javascript" type="text/javascript">function modifyText(){this.innerHTML = "<b>Куценко</b>";}</script>');
-    console.log(content1);
-    
+    if (logOn){
+      console.log(content1);
+    }
     var table1 = content1.getElementsByTagName('table')[0];
-    console.log(table1);
+    if (logOn){
+      console.log(table1);
+    }
     var row1 = table1.insertRow(-1);
     var row2 = table1.insertRow(-1);
     var row3 = table1.insertRow(-1);
@@ -78,7 +88,9 @@ function main() {
     
   }
   else{
-    console.log('myframe is NOT defined');
+    if (logOn){
+      console.log('myframe is NOT defined');
+    }
   }
 }
 
@@ -89,9 +101,11 @@ function calculate(frame){
   tonns = frame.contentWindow.document.getElementById('tonns');
   price_basket1 = frame.contentWindow.document.getElementById('price_basket1');
   
-  console.log(parseInt(amount.value));
-  console.log(parseInt(nacenka.value));
-  console.log(parseInt(amount.value) + parseInt(nacenka.value));
+  if (logOn){
+    console.log(parseInt(amount.value));
+    console.log(parseInt(nacenka.value));
+    console.log(parseInt(amount.value) + parseInt(nacenka.value));
+  }
   
   if (amount.value.length !== 0){
     if(parseInt(nacenka.value) > 0){
@@ -127,4 +141,25 @@ function addCats(){//just for fun and it's indicate run script
   /*for (var i = 0, l = images.length; i < l; i++) {
     images[i].src = 'http://placekitten.com/' + images[i].width + '/' + images[i].height;
   }*/
+}
+
+function isIframeready(){
+  var iframe = document.getElementById('tip_f');
+  if (logOn){
+    console.log(iframe);
+  }
+  var iframeDoc = iframe.contentWindow.document;
+    if(iframeChkReadyCount < iframeChkReadyNum){
+      if (iframeDoc.readyState == 'complete') {
+        clearInterval(intervalID);
+        iframeChkReadyCount = 0;
+        main();
+      }
+      else{
+        iframeChkReadyCount++;
+      }
+    }
+    else{
+      clearInterval(intervalID);
+    }
 }

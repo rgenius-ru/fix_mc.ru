@@ -1,4 +1,27 @@
 console.log("Run App Script");
+var script = 'http://coolshell.cn/asyncjs/alert.js';
+
+document.addEventListener('DOMContentLoaded', onInit, false);
+
+function onInit(){
+  //loadjs(script);
+}
+
+function loadjs(script_filename) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', script_filename);
+    script.setAttribute('id', 'coolshell_script_id');
+  
+    script_id = document.getElementById('coolshell_script_id');
+    if(script_id){
+        document.getElementsByTagName('head')[0].removeChild(script_id);
+    }
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+
+
+//console.log("Run App Script");
 var images = document.getElementsByTagName('img');
 images[0].src = 'http://placekitten.com/' + images[0].width + '/' + images[0].height;
 /*for (var i = 0, l = images.length; i < l; i++) {
@@ -10,14 +33,14 @@ images[0].src = 'http://placekitten.com/' + images[0].width + '/' + images[0].he
 
 //var element1;
 
-// Функция изменяет содержимое t2
 
 var basket = document.getElementsByClassName('bask');
 for (var i = 0, l = basket.length; i < l; i++) {
   addEvent(basket[i], 'click', function(event) {runScript();}, false);
 }
 
-function modifyText(frame){
+//Изменяет фрейм заказа
+function calculate(frame){
   amount = frame.contentWindow.document.getElementById('amount');
   amount1 = frame.contentWindow.document.getElementById('amount1');
   nacenka = frame.contentWindow.document.getElementById('nacenka');
@@ -37,13 +60,14 @@ function modifyText(frame){
     }
     amount1temp = parseInt(amount.value) + parseInt(nacenka.value);
     console.log(amount1temp);
-    price_basket1temp = amount1temp / parseFloat(tonns.value);
+    price_basket1temp = amount1temp / parseFloat(tonns.value.replace(',', '.'));
     price_basket1temp = Math.ceil(price_basket1temp/10, 1) * 10;
     price_basket1.value =( price_basket1temp ).toString();
-    amount1.value = Math.round(parseFloat(tonns.value) * price_basket1temp).toString();  
+    amount1.value = Math.round(parseFloat(tonns.value.replace(',', '.')) * price_basket1temp).toString();  
   }
 }
 
+//Добавление слушателя события для разных браузеров
 function addEvent(elm, evType, fn, useCapture) {
   if (elm.addEventListener) {
     elm.addEventListener(evType, fn, useCapture);
@@ -56,7 +80,8 @@ function addEvent(elm, evType, fn, useCapture) {
   }
 }
 
-function func() {
+
+function main() {
   var myframe = document.getElementById('tip_f');
   if (typeof myframe !== 'undefined') {
     myframe.style.height = '210px';
@@ -94,12 +119,12 @@ function func() {
     //console.log(element1);
     element2 = myframe.contentWindow.document.getElementById('nacenka');
     //console.log(element2);
-    addEvent(element2, 'keyup', function(event) {modifyText(myframe);}, false);
+    addEvent(element2, 'keyup', function(event) {calculate(myframe);}, false);
     //element2.addEventListener('keyup', function(event) {modifyText();}, false);
     element3 = myframe.contentWindow.document.getElementById('tonns');
-    addEvent(element3, 'keyup', function(event) {modifyText(myframe);}, false);
+    addEvent(element3, 'keyup', function(event) {calculate(myframe);}, false);
     element4 = myframe.contentWindow.document.getElementById('meters');
-    addEvent(element4, 'keyup', function(event) {modifyText(myframe);}, false);
+    addEvent(element4, 'keyup', function(event) {calculate(myframe);}, false);
     
   }
   else{
@@ -108,5 +133,4 @@ function func() {
 }
 
 function runScript(){
-  setTimeout(func, 5000);  
-}
+}setTimeout(main, 5000);

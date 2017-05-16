@@ -3,7 +3,7 @@
 var iframeChkReadyNum = 60;//counter - number of Check iframe ready
 var iframeChkReadyCount = 0;
 var intervalID;
-var logOn = false;
+var logOn = true;
 //**************************
 console.log("Run Fix_mc Script");
 
@@ -41,7 +41,7 @@ function runScript(){
 function main() {
   var myframe = document.getElementById('tip_f');
   if (typeof myframe !== 'undefined') {
-    myframe.style.height = '210px';
+    myframe.style.height = '230px';
     
     var content1 = myframe.contentWindow.document.getElementById('background');
     //content1.insertAdjacentHTML('afterend', '<script language="Javascript" type="text/javascript">function modifyText(){this.innerHTML = "<b>Куценко</b>";}</script>');
@@ -55,25 +55,36 @@ function main() {
     var row1 = table1.insertRow(-1);
     var row2 = table1.insertRow(-1);
     var row3 = table1.insertRow(-1);
+    var row4 = table1.insertRow(-1);
 
     var cells1 = [];
     var cells2 = [];
     var cells3 = [];
+    var cells4 = [];
     for(i=0; i<=5; i++){
       cells1.push(row1.insertCell(i));
       cells2.push(row2.insertCell(i));
       cells3.push(row3.insertCell(i));
+      cells4.push(row4.insertCell(i));
     }
 
     cells1[4].innerHTML = '<b>Наценка</b>';
     element1 = cells1[4];
     
+    cells2[3].innerHTML = '<b>За тонну</b>';
     cells2[4].innerHTML = '<input type="text" autofocus="autofocus" id="nacenka" name="nacenka" tabindex="1" style="width: 80; text-align: center">';
 
-    cells3[1].innerHTML = '<input type="text" autocomplete="off" id="tonns1" name="tonns1" tabindex="1" value="" style="width: 58; text-align: center">'; /*onkeyup="modifyText()"*/
-    cells3[2].innerHTML = '<input type="text" autocomplete="off" id="meters1" name="meters1" onkeyup="" tabindex="1" style="width: 58; text-align: center">';
+    cells3[2].innerHTML = '<b>За мп</b>';
+    //cells3[1].innerHTML = '<input type="text" autocomplete="off" id="tonns1" name="tonns1" tabindex="1" value="" style="width: 58; text-align: center">'; /*onkeyup="modifyText()"*/
+    //cells3[2].innerHTML = '<input type="text" autocomplete="off" id="meters1" name="meters1" onkeyup="" tabindex="1" style="width: 58; text-align: center">';
     cells3[3].innerHTML = '<input type="text" id="price_basket1" name="price_basket1" tabindex="1" style="width: 80; text-align: center">';
     cells3[4].innerHTML = '<input type="text" id="amount1" name="amount1" tabindex="1" style="width: 80; text-align: center">'; /*disabled="disabled"*/
+    
+    //cells4[1].innerHTML = '<input type="text" autocomplete="off" id="tonns2" name="tonns2" tabindex="1" value="" style="width: 58; text-align: center">'; /*onkeyup="modifyText()"*/
+    cells4[2].innerHTML = '<input type="text" autocomplete="off" id="meters2" name="meters2" onkeyup="" tabindex="1" style="width: 58; text-align: center">';
+    cells4[3].innerHTML = '<input type="text" id="price_basket2" name="price_basket2" tabindex="1" style="width: 80; text-align: center">';
+    cells4[4].innerHTML = '<input type="text" id="amount2" name="amount2" tabindex="1" style="width: 80; text-align: center">'; /*disabled="disabled"*/
+    
     
     element1 = myframe.contentWindow.document.getElementById('amount1');
     //console.log(element1);
@@ -100,6 +111,7 @@ function calculate(frame){
   nacenka = frame.contentWindow.document.getElementById('nacenka');
   tonns = frame.contentWindow.document.getElementById('tonns');
   price_basket1 = frame.contentWindow.document.getElementById('price_basket1');
+  meters1 = frame.contentWindow.document.getElementById('meters1');
   
   if (logOn){
     console.log(parseInt(amount.value));

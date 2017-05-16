@@ -8,7 +8,7 @@
   "content_scripts": [{
     "css": ["styles.css"],
     "js": ["content.js"],
-    "matches": ["https://mc.ru/page.asp/metalloprokat/*"]
+    "matches": ["https://mc.ru/metalloprokat/*"]
   }]
 
 }

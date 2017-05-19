@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "fix mc.ru",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Add more options to service mc.ru",
 
   "content_scripts": [{
